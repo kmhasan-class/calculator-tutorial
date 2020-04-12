@@ -28,12 +28,12 @@
          <children>
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleZeroOperation" prefHeight="40.0" prefWidth="45.0" text="0" GridPane.rowIndex="4" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" text="." GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" text="=" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleEqualOperation" prefHeight="40.0" prefWidth="45.0" text="=" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleAdditionOperation" prefHeight="40.0" prefWidth="45.0" text="+" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="1" GridPane.rowIndex="3" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="3" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleSubtractionOperation" prefHeight="40.0" prefWidth="45.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="4" GridPane.rowIndex="2" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button minHeight="40.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleDigitOperation" prefHeight="40.0" prefWidth="45.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2" />
