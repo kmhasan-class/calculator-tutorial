@@ -14,13 +14,20 @@ public class PrimaryController {
     private double number1;
     private double number2;
     private Operator operator;
+    private boolean readingDigits;
 
     public PrimaryController() {
         displayField = new TextField();
+        readingDigits = false;
     }
 
     @FXML
     private void handleDigitAction(ActionEvent actionEvent) {
+        if (!readingDigits) {
+            displayField.clear();
+            readingDigits = true;
+        }
+
         Button eventSource = (Button) actionEvent.getSource();
         String digit = eventSource.getText();
         String oldText = displayField.getText();
@@ -40,34 +47,43 @@ public class PrimaryController {
         return null;
     }
 
+    private void calculate() {
+        // Step 2: Add the two numbers and store the result in a variable
+        number1 = operator.operate(number1, number2);
+
+        // Step 3: Display the result into the displayField
+        displayField.setText("" + number1);
+
+    }
+
     @FXML
     private void handleOperatorAction(ActionEvent actionEvent) {
+        readingDigits = false;
+
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
-        number1 = Double.parseDouble(numberAsString);
+
+        if (operator != null) {
+            // Take care of the pending operation
+            number2 = Double.parseDouble(numberAsString);
+            calculate();
+        } else {
+            number1 = Double.parseDouble(numberAsString);
+        }
 
         // Step 2: Remember which operator it is
         Button eventSource = (Button) actionEvent.getSource();
         String symbol = eventSource.getText();
         operator = getOperator(symbol);
-
-        // Step 3: Clear the displayField so that we can read the next number
-        displayField.clear();
-
     }
 
     @FXML
     private void handleEqualAction() {
-        double result = 0;
-
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
         number2 = Double.parseDouble(numberAsString);
 
-        // Step 2: Add the two numbers and store the result in a variable
-        result = operator.operate(number1, number2);
-
-        // Step 3: Display the result into the displayField
-        displayField.setText("" + result);
+        // Step 2: Call the calculate method
+        calculate();
     }
 }
