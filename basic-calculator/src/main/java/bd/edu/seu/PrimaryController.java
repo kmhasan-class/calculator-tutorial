@@ -11,8 +11,8 @@ public class PrimaryController {
     @FXML
     private TextField displayField;
 
-    private int number1;
-    private int number2;
+    private double number1;
+    private double number2;
     private String operation;
 
     public PrimaryController() {
@@ -26,9 +26,23 @@ public class PrimaryController {
         String oldText = displayField.getText();
         if (oldText.startsWith("0"))
             oldText = "";
-        String newText = oldText + digit;
-        displayField.setText(newText);
+        // TODO Note to self: move the dot related stuff into another method
+        if (!digit.equals(".") || (digit.equals(".") && !oldText.contains("."))) {
+            String newText = oldText + digit;
+            displayField.setText(newText);
+        }
     }
+
+//    @FXML
+//    private void handleDotOperation(ActionEvent actionEvent) {
+//        Button eventSource = (Button) actionEvent.getSource();
+//        String digit = eventSource.getText();
+//        String oldText = displayField.getText();
+//        if (oldText.startsWith("0"))
+//            oldText = "";
+//        String newText = oldText + digit;
+//        displayField.setText(newText);
+//    }
 
     @FXML
     private void handleZeroOperation() {
@@ -43,7 +57,7 @@ public class PrimaryController {
     private void handleAdditionOperation() {
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
-        number1 = Integer.parseInt(numberAsString);
+        number1 = Double.parseDouble(numberAsString);
 
         // Step 2: Remember that it is an addition operation
         operation = "ADDITION";
@@ -56,7 +70,7 @@ public class PrimaryController {
     private void handleSubtractionOperation() {
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
-        number1 = Integer.parseInt(numberAsString);
+        number1 = Double.parseDouble(numberAsString);
 
         // Step 2: Remember that it is an addition operation
         operation = "SUBTRACTION";
@@ -66,12 +80,25 @@ public class PrimaryController {
     }
 
     @FXML
+    private void handleDivisionOperation() {
+        // Step 1: Get the number typed into the displayField and copy it to somewhere
+        String numberAsString = displayField.getText();
+        number1 = Double.parseDouble(numberAsString);
+
+        // Step 2: Remember that it is an addition operation
+        operation = "DIVISION";
+
+        // Step 3: Clear the displayField so that we can read the next number
+        displayField.clear();
+    }
+
+    @FXML
     private void handleEqualOperation() {
-        int result = 0;
+        double result = 0;
 
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
-        number2 = Integer.parseInt(numberAsString);
+        number2 = Double.parseDouble(numberAsString);
 
         // Step 2: Add the two numbers and store the result in a variable
         switch (operation) {
@@ -81,6 +108,10 @@ public class PrimaryController {
 
             case "SUBTRACTION":
                 result = number1 - number2;
+                break;
+
+            case "DIVISION":
+                result = number1 / number2;
                 break;
 
             default:
