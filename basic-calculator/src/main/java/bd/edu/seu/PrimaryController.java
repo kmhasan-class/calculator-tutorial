@@ -13,14 +13,14 @@ public class PrimaryController {
 
     private double number1;
     private double number2;
-    private String operation;
+    private Operator operator;
 
     public PrimaryController() {
         displayField = new TextField();
     }
 
     @FXML
-    private void handleDigitOperation(ActionEvent actionEvent) {
+    private void handleDigitAction(ActionEvent actionEvent) {
         Button eventSource = (Button) actionEvent.getSource();
         String digit = eventSource.getText();
         String oldText = displayField.getText();
@@ -33,67 +33,31 @@ public class PrimaryController {
         }
     }
 
-//    @FXML
-//    private void handleDotOperation(ActionEvent actionEvent) {
-//        Button eventSource = (Button) actionEvent.getSource();
-//        String digit = eventSource.getText();
-//        String oldText = displayField.getText();
-//        if (oldText.startsWith("0"))
-//            oldText = "";
-//        String newText = oldText + digit;
-//        displayField.setText(newText);
-//    }
-
-    @FXML
-    private void handleZeroOperation() {
-        String oldText = displayField.getText();
-        if (!oldText.startsWith("0")) {
-            String newText = oldText + "0";
-            displayField.setText(newText);
-        }
+    private Operator getOperator(String symbol) {
+        for (Operator operator : Operator.values())
+            if (operator.getSymbol().equals(symbol))
+                return operator;
+        return null;
     }
 
     @FXML
-    private void handleAdditionOperation() {
+    private void handleOperatorAction(ActionEvent actionEvent) {
         // Step 1: Get the number typed into the displayField and copy it to somewhere
         String numberAsString = displayField.getText();
         number1 = Double.parseDouble(numberAsString);
 
-        // Step 2: Remember that it is an addition operation
-        operation = "ADDITION";
+        // Step 2: Remember which operator it is
+        Button eventSource = (Button) actionEvent.getSource();
+        String symbol = eventSource.getText();
+        operator = getOperator(symbol);
 
         // Step 3: Clear the displayField so that we can read the next number
         displayField.clear();
+
     }
 
     @FXML
-    private void handleSubtractionOperation() {
-        // Step 1: Get the number typed into the displayField and copy it to somewhere
-        String numberAsString = displayField.getText();
-        number1 = Double.parseDouble(numberAsString);
-
-        // Step 2: Remember that it is an addition operation
-        operation = "SUBTRACTION";
-
-        // Step 3: Clear the displayField so that we can read the next number
-        displayField.clear();
-    }
-
-    @FXML
-    private void handleDivisionOperation() {
-        // Step 1: Get the number typed into the displayField and copy it to somewhere
-        String numberAsString = displayField.getText();
-        number1 = Double.parseDouble(numberAsString);
-
-        // Step 2: Remember that it is an addition operation
-        operation = "DIVISION";
-
-        // Step 3: Clear the displayField so that we can read the next number
-        displayField.clear();
-    }
-
-    @FXML
-    private void handleEqualOperation() {
+    private void handleEqualAction() {
         double result = 0;
 
         // Step 1: Get the number typed into the displayField and copy it to somewhere
@@ -101,22 +65,7 @@ public class PrimaryController {
         number2 = Double.parseDouble(numberAsString);
 
         // Step 2: Add the two numbers and store the result in a variable
-        switch (operation) {
-            case "ADDITION":
-                result = number1 + number2;
-                break;
-
-            case "SUBTRACTION":
-                result = number1 - number2;
-                break;
-
-            case "DIVISION":
-                result = number1 / number2;
-                break;
-
-            default:
-                break;
-        }
+        result = operator.operate(number1, number2);
 
         // Step 3: Display the result into the displayField
         displayField.setText("" + result);
